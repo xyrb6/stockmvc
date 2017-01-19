@@ -1,0 +1,36 @@
+extends layout
+
+block append script
+    script(type="text/javascript", src="/javascripts/getzlzjwithjq.js")
+    script(type="text/javascript", src="/javascripts/getzlzjechart.js")
+
+block content
+    h1 #{title}
+    div.clsSel
+        form(id="frmgetzlzj",name="frmgetzlzj")
+            table
+                tr
+                    td
+                        b ※功能:①股票代码不选:主力资金流入次数最多的前50只股票出现次数检索 ②只选股票代码:股票资金流入检索
+                tr
+                    td
+                        | 股票代码:
+                        select(id="selcode",name="selcode")
+                            option(value="")
+                            each code in codes
+                                option(value="#{code}") #{code}
+                tr
+                    td
+                        | 开始日期:
+                        input(type="text",id="txtymd",name="txtymd")
+                        | (格式:YYYYMMDD)
+                tr
+                    td
+                        input(type="submit",value="获取数据")
+    br
+    form(id="frmgetzlzjggdetail",name="frmgetzlzjggdetail")
+        div#selData
+    div#selRlt
+        p#err.description
+    div#chartData(style="width:100%;height:400px;")
+    div#chartData2(style="width:100%;height:400px;")

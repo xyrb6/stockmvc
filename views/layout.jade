@@ -1,0 +1,25 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script(type="text/javascript", src="/javascripts/jquery-3.1.1.js")
+    script(type="text/javascript", src="/javascripts/echarts.min-3.4.0.js")
+  block script
+  body
+    div#menu
+      table
+        tr
+          th
+            a(href="/") 返回首页
+          th
+            a(href="/gethybk") 行业板块
+          th
+            a(href="/getzlzj") 主力资金
+          th
+            a(href="/getggzj") 个股资金
+          th
+            a(href="/getdatas") 取得数据
+          th
+            a(href="/getmst") 获取代码表
+  block content

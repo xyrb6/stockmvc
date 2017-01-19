@@ -1,0 +1,39 @@
+extends layout
+
+block append script
+    script(type="text/javascript", src="/javascripts/gethybk.js")
+    script(type="text/javascript", src="/javascripts/gethybkajax.js")
+    script(type="text/javascript", src="/javascripts/gethybkechart.js")
+
+block content
+    h1 #{title}
+    div.clsSel
+        //form(name="frmgethybk",method="post",action="/gethybk")
+        //form(name="frmgethybk")
+        table
+            tr
+                td
+                    b ※功能:①选股票代码+详细复选框:股票资金流入检索②按条件统计资金状况
+                    tr
+                        td
+                            | 股票代码:
+                            select(id="selcode",name="selcode")
+                                option(value="")
+                                each code in codes
+                                    option(value="#{code}") #{code}
+                            input(type='checkbox',id='chkhybkdetail',name='chkhybkdetail')
+                            | 详细
+                    tr
+                        td
+                            | 数据日期:
+                            input(type="text",id="txtymd",name="txtymd")
+                            | (格式:YYYYMMDD)
+                    tr
+                        td
+                            //input(type="submit",name='提 交')
+                            button(onclick="getByCode()") 获取数据
+    div#selRlt
+        p#err.description
+    div#selData
+        span#data
+    div#chartData(style="width:100%;height:400px;")
