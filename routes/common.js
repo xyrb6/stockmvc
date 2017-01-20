@@ -1,4 +1,10 @@
-Date.prototype.format = function(format){ 
+/**
+ * 日期格式化
+ *
+ * @param format 格式
+ * @returns {*}
+ */
+Date.prototype.format = function (format) {
 		var o = { 
 				"M+" : this.getMonth()+1, //month 
 				"d+" : this.getDate(), //day 
@@ -7,19 +13,19 @@ Date.prototype.format = function(format){
 				"s+" : this.getSeconds(), //second 
 				"q+" : Math.floor((this.getMonth()+3)/3), //quarter 
 				"S" : this.getMilliseconds() //millisecond 
-		} 
+        };
 		
 		if(/(y+)/.test(format)) { 
 			format = format.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length)); 
 		} 
 		
 		for(var k in o) { 
-			if(new RegExp("("+ k +")").test(format)) { 
-				format = format.replace(RegExp.$1, RegExp.$1.length==1 ? o[k] : ("00"+ o[k]).substr((""+ o[k]).length)); 
-			} 
-		} 
-		return format; 
-}
+			if(new RegExp("("+ k +")").test(format)) {
+                format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
+            }
+        }
+    return format;
+};
 /* URL */
 URL_HOST = 'http://nufm.dfcfw.com/';
 // 个股实时资金流向排行
@@ -55,7 +61,7 @@ exports.hybkmap = new Map();
 exports.ggmap = new Map();
 
 // 股票资金流入选取数量
-exports.selectCnt = 75;
+exports.selectCnt = 50;
 
 // 项目取值范围
 exports.type = {

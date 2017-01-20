@@ -27,7 +27,7 @@ sttzlzjDao.prototype.save=function(obj,callback){
     instance.save(function(err){
         callback(err);
     })
-}
+};
 
 /*******
  批量保存
@@ -38,7 +38,7 @@ sttzlzjDao.prototype.create=function(obj,callback){
     sttzlzj.create(obj, function(err){
         callback(err);
     })
-}
+};
 
 /**
  按照条件查询
@@ -51,7 +51,7 @@ sttzlzjDao.prototype.findByConditons=function(code, ymdfrom, callback){
     query.select('date curprice parcent -_id');
     query.sort({date: 1, curprice: 1});
     query.exec(callback);
-}
+};
 
 /**
  所有code求和
@@ -82,6 +82,6 @@ sttzlzjDao.prototype.groupBefore50=function(ymdfrom, callback){
             }
         );
     }
-}
+};
 
 module.exports=new sttzlzjDao();
