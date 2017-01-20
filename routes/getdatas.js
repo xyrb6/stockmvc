@@ -3,7 +3,7 @@ var router = express.Router();
 
 var request = require('request');
 var common = require('./common');
-var getNetDatacomm = require('./getNetDatacomm');
+var getNetDataComm = require('./getNetDataComm');
 var sttggzj=require('./../model/sttggzj');
 var sttzlzj=require('./../model/sttzlzj');
 var stthybk=require('./../model/stthybk');
@@ -14,7 +14,7 @@ router.post('/', function(req, res, next) {
   var ymd = req.body['ymd']
   // console.log(type);
   // console.log(ymd);
-  var data = getNetDatacomm.dataCollectorStartup(type, ymd, function(err, data) {
+    var data = getNetDataComm.dataCollectorStartup(type, ymd, function (err, data) {
       // console.log('数据插入前:' + data);
       if (err) {
           res.render('getdatas', {title: common.TITLE_GET_DATA,isgetdata:true,success:false,err:err});

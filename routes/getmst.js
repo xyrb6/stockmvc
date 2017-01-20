@@ -3,7 +3,7 @@ var router = express.Router();
 
 // var request = require('request');
 var common = require('./common');
-var getNetDatacomm = require('./getNetDatacomm');
+var getNetDataComm = require('./getNetDataComm');
 var sttmgg=require('./../model/sttmgg');
 var sttmhybk=require('./../model/sttmhybk');
 
@@ -11,7 +11,7 @@ var sttmhybk=require('./../model/sttmhybk');
 router.post('/', function(req, res, next) {
     var type = req.body['type'];
     // console.log('router:' + type);
-    var data = getNetDatacomm.dataMasterStartup(type, function(err, data) {
+    var data = getNetDataComm.dataMasterStartup(type, function (err, data) {
         // console.log('数据插入前:' + data);
         if (err) {
             res.render('getmst', {title: common.TITLE_GET_MST,isgetdata:true,success:false,err:err});
