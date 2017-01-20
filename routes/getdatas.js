@@ -11,7 +11,7 @@ var stthybk=require('./../model/stthybk');
 /* GET home page. */
 router.post('/', function(req, res, next) {
   var type = req.body['type'];
-  var ymd = req.body['ymd']
+    var ymd = req.body['txtymd']
   // console.log(type);
   // console.log(ymd);
     var data = getNetDataComm.dataCollectorStartup(type, ymd, function (err, data) {
