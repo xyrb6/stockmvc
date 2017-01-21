@@ -1,2 +1,13 @@
-1、JQ设置内容为什么查看代码没有内容？
+getdatas 什么都没用
+gethybk ajax
+getmst ajax
+getzlzj jq+ajax
 
+
+1、JQ设置内容为什么查看代码没有内容？
+A:动态加载的内容不能显示。可以用FireFox等工具调试显示。
+
+2、jq通过id不能获取p标签
+A:父标签被动态清空后(p标签在检索数据时被动态清空了)，代码中就没有p标签。但是通过div的id能获取。
+
+3、document.getElementById 直接取到标签对象，但是$("#id")取到的是一个长度为1的数组，下标[0]才是标签对象。

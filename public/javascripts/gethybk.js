@@ -5,8 +5,6 @@ getByCode = function(){
     var selcode = document.getElementById("selcode").value;
     var txtymd = document.getElementById("txtymd").value;
     var ishybkdetail = document.getElementById("chkhybkdetail").checked;
-    // alert('javascript exe');
-    // alert(selcode + ":" + txtymd);
 
     gethybkajax({
         url: '/gethybk',
@@ -14,11 +12,7 @@ getByCode = function(){
         sync: true,
         data: {code: selcode,ymd: txtymd,ishybkdetail:ishybkdetail},
         done: function(xhr){
-            // alert('done: ');
-            // alert(xhr.responseText);
             var datas = xhr.responseText
-            // document.getElementById('data').innerHTML=datas;
-            // alert(datas);
             if (datas != '[]') {
                 // alert(datas);
                 datas = datas.replace('[','').replace(']','').replace(/},/g,'}@').split('@');
@@ -52,8 +46,6 @@ getByCode = function(){
             }
         },
         fail: function(err){
-            // alert('failed: ');
-            // alert(err);
             document.getElementById('err').innerHTML='数据插入失败。<br />' + err;
         },
         type: 'json'

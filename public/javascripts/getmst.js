@@ -3,9 +3,6 @@
  */
 getmst = function(){
     var rdotypes = document.getElementsByName("rdotype");
-    // var rdotype = rdotypes.map(function(val,index,arr){
-    //     if (arr[index].checked) return arr[index].value;
-    // })
     for(var i=0;i<rdotypes.length;i++){
         if(rdotypes[i].checked) {
             rdotype = rdotypes[i].value
