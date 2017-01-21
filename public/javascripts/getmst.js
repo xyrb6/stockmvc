@@ -19,11 +19,11 @@ getmst = function(){
         sync: true,
         data: {type: rdotype},
         done: function(xhr){
-            document.getElementById('selRlt').innerHTML='<h3>数据插入成功。</h3><br />' + xhr.responseText;
+            document.getElementById('selRlt').innerHTML = '数据插入成功。<br />' + xhr.responseText;
         },
         fail: function(err){
-            document.getElementById('selRlt').innerHTML='<h3>数据插入失败。</h3><br />' + err;
+            document.getElementById('selRlt').innerHTML = '数据插入失败。<br />' + err;
         },
         type: 'json'
     });
-}
+};

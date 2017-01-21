@@ -41,10 +41,17 @@ stthybkDao.prototype.create=function(obj,callback){
 /**
  按照代码精确查询
  **/
-stthybkDao.prototype.findByCode=function(code, callback){
-    stthybk.find({code:code},{date: 1, money:1, _id: 0},function(err,obj){
-        callback(err,obj);
-    });
+stthybkDao.prototype.findByCode = function (code, ymdfrom, callback) {
+    if (ymdfrom) {
+        stthybk.find({$and: [{code: code}, {date: {$gte: ymdfrom}}]}, {date: 1, money: 1, _id: 0}, function (err, obj) {
+            callback(err, obj);
+        });
+    } else {
+        // console.log("code:" + code + " ymdfrom:" + ymdfrom);
+        stthybk.find({code: code}, {date: 1, money: 1, _id: 0}, function (err, obj) {
+            callback(err, obj);
+        });
+    }
 }
 
 /**
@@ -68,8 +75,9 @@ stthybkDao.prototype.find=function(code, ymd, callback){
 /**
  按照code求和
  **/
-stthybkDao.prototype.groupByConditons=function(code, ymd, callback){
-    if (code && ymd) {
+stthybkDao.prototype.groupByConditons = function (code, ymd, ymdfrom, callback) {
+    if (code && ymd && !ymdfrom) {
+        // 指定板块&指定日
         stthybk.aggregate(
             [
                 {$match: {$and: [{code :  code },{date:  ymd }]}}
@@ -81,9 +89,8 @@ stthybkDao.prototype.groupByConditons=function(code, ymd, callback){
                 callback(err, res);
             }
         );
-        // var match = '{$match: {$and: [{code : ' + code + '},{ymd: ' + ymd + '}]}}';
-    } else if (code && !ymd) {
-        // var match = '{$match: {code : ' + code + '}}';
+    } else if (code && !ymd && !ymdfrom) {
+        // 仅指定板块
         stthybk.aggregate(
             [
                 {$match: {code : code }}
@@ -95,11 +102,11 @@ stthybkDao.prototype.groupByConditons=function(code, ymd, callback){
                 callback(err, res);
             }
         );
-    } else if (!code && ymd) {
-        // var match = '{$match: {ymd : ' + ymd + '}}';
+    } else if (code && !ymd && ymdfrom) {
+        // 指定板块&指定开始日
         stthybk.aggregate(
             [
-                {$match: {date : ymd }}
+                {$match: {$and: [{code: code}, {date: {$gte: ymdfrom}}]}}
                 , { $group: { _id : "$code" , total: { $sum: '$money' }}}
                 , { $sort: {_id: 1}}
                 // , { $project: { _id: 1, total: 1 }}
@@ -108,23 +115,54 @@ stthybkDao.prototype.groupByConditons=function(code, ymd, callback){
                 callback(err, res);
             }
         );
+    } else {
+        // 什么都没有
     }
 }
 
 /**
  所有code求和
  **/
-stthybkDao.prototype.groupAll=function(callback){
-    stthybk.aggregate(
-        [
-            { $group: { _id : "$code" , total: { $sum: '$money' }}}
-            , { $sort: {_id: 1}}
-            // , { $project: { _id: 1, total: 1 }}
-        ]
-        , function (err, res) {
-            callback(err, res);
-        }
-    );
+stthybkDao.prototype.groupAll = function (ymd, ymdfrom, callback) {
+    if (ymdfrom) {
+        // 仅指定了开始日期
+        stthybk.aggregate(
+            [
+                {$match: {date: {$gte: ymdfrom}}}
+                , {$group: {_id: "$code", total: {$sum: '$money'}}}
+                , {$sort: {_id: 1}}
+                // , { $project: { _id: 1, total: 1 }}
+            ]
+            , function (err, res) {
+                callback(err, res);
+            }
+        );
+        // 仅指定了数据日期
+    } else if (ymd) {
+        stthybk.aggregate(
+            [
+                {$match: {date: ymd}}
+                , {$group: {_id: "$code", total: {$sum: '$money'}}}
+                , {$sort: {_id: 1}}
+                // , { $project: { _id: 1, total: 1 }}
+            ]
+            , function (err, res) {
+                callback(err, res);
+            }
+        );
+    } else {
+        // 什么项目都没有指定
+        stthybk.aggregate(
+            [
+                {$group: {_id: "$code", total: {$sum: '$money'}}}
+                , {$sort: {_id: 1}}
+                // , { $project: { _id: 1, total: 1 }}
+            ]
+            , function (err, res) {
+                callback(err, res);
+            }
+        );
+    }
 }
 
 /**

@@ -5,14 +5,35 @@ getByCode = function(){
     var selcode = document.getElementById("selcode").value;
     var txtymd = document.getElementById("txtymd").value;
     var ishybkdetail = document.getElementById("chkhybkdetail").checked;
+    var txtymdfrom = document.getElementById("txtymdfrom").value;
 
+    // 初始化
+    document.getElementById('selRlt').innerHTML = '';
+    document.getElementById('selData').innerHTML = '';
+    document.getElementById('chartData').innerHTML = '';
+
+    // 检查日期
+    if (txtymd && txtymdfrom) {
+        document.getElementById('selRlt').innerHTML = '数据日期和开始日期只能有一个可以指定。';
+        return false;
+    }
+
+    // 板块详情时不能指定数据日期
+    if (txtymd && ishybkdetail && txtymd) {
+        document.getElementById('selRlt').innerHTML = '板块详情时不能指定数据日期。';
+        return false;
+    }
+
+    // 取数据
     gethybkajax({
         url: '/gethybk',
         method: 'POST',
         sync: true,
-        data: {code: selcode,ymd: txtymd,ishybkdetail:ishybkdetail},
+        data: {code: selcode, ymd: txtymd, ishybkdetail: ishybkdetail, ymdfrom: txtymdfrom},
         done: function(xhr){
-            var datas = xhr.responseText
+            var datas = xhr.responseText;
+            // document.getElementById('data').innerHTML=datas;
+            // alert(datas);
             if (datas != '[]') {
                 // alert(datas);
                 datas = datas.replace('[','').replace(']','').replace(/},/g,'}@').split('@');
@@ -31,7 +52,6 @@ getByCode = function(){
                     }
                 }
 
-                document.getElementById('data').innerHTML='';
                 hybkechart({
                     title : '',
                     legend : ['金额'],
@@ -41,13 +61,12 @@ getByCode = function(){
                     seriesdata :  echtseriesdata
                 });
             } else {
-                document.getElementById('data').innerHTML='没有数据。';
-                document.getElementById('chartData').innerHTML='';
+                document.getElementById('selRlt').innerHTML = '没有数据。';
             }
         },
         fail: function(err){
-            document.getElementById('err').innerHTML='数据插入失败。<br />' + err;
+            document.getElementById('selRlt').innerHTML = '数据插入失败。<br />' + err;
         },
         type: 'json'
     });
-}
+};

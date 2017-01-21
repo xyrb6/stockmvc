@@ -61,7 +61,7 @@ exports.hybkmap = new Map();
 exports.ggmap = new Map();
 
 // 股票资金流入选取数量
-exports.selectCnt = 50;
+exports.selectCnt = 75;
 
 // 项目取值范围
 exports.type = {

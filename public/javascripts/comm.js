@@ -10,4 +10,10 @@ $(function () {
         changeYear: true,
         dateFormat: "yymmdd"
     });
+
+    $("#txtymdfrom").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "yymmdd"
+    });
 });

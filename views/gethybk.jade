@@ -17,10 +17,10 @@ block content
         table
             tr
                 td
-                    b ※功能:①选股票代码+详细复选框:股票资金流入检索②按条件统计资金状况
+                    b ※功能:①选板块代码+详细复选框:板块资金流入检索②按条件统计资金状况
                     tr
                         td
-                            | 股票代码:
+                            | 板块代码:
                             select(id="selcode",name="selcode")
                                 option(value="")
                                 each code in codes
@@ -34,9 +34,13 @@ block content
                             | (格式:YYYYMMDD)
                     tr
                         td
+                            | 开始日期:
+                            input(type="text",id="txtymdfrom",name="txtymd")
+                            | (格式:YYYYMMDD)
+                    tr
+                        td
                             //input(type="submit",name='提 交')
                             button(onclick="getByCode()") 获取数据
     div#selRlt
     div#selData
-        span#data
     div#chartData(style="width:100%;height:400px;")
