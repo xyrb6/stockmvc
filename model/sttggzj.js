@@ -27,7 +27,7 @@ sttggzjDao.prototype.save=function(obj,callback){
     instance.save(function(err){
         callback(err);
     })
-}
+};
 
 /*******
  批量保存
@@ -38,7 +38,7 @@ sttggzjDao.prototype.create=function(obj,callback){
     sttggzj.create(obj, function(err){
         callback(err);
     })
-}
+};
 
 /**
  按照代码精确查询
@@ -47,6 +47,50 @@ sttggzjDao.prototype.findByCode=function(code,callback){
     sttggzj.findOne({code:code},function(err,obj){
         callback(err,obj);
     });
-}
+};
+
+/**
+ 按照条件查询
+ **/
+sttggzjDao.prototype.findByConditons = function (code, ymdfrom, callback) {
+    // console.log('code:' + code + '  ymdfrom:' + ymdfrom);
+    var query = sttggzj.find();
+    if (code) query.where('code').equals(code);
+    if (ymdfrom) query.where('date').gte(ymdfrom);
+    query.select('no date curprice parcent -_id');
+    query.sort({date: 1, curprice: 1});
+    query.exec(callback);
+};
+
+/**
+ 所有code求和
+ **/
+sttggzjDao.prototype.groupBefore50 = function (ymdfrom, callback) {
+    if (ymdfrom) {
+        sttggzj.aggregate(
+            [
+                {$match: {$and: [{date: {$gte: ymdfrom}}, {no: {$lte: common.selectCnt}}]}}
+                , {$group: {_id: "$code", count: {$sum: 1}}}
+                , {$sort: {count: -1}}
+                , {$limit: common.selectCnt}
+            ]
+            , function (err, res) {
+                callback(err, res);
+            }
+        );
+    } else {
+        sttggzj.aggregate(
+            [
+                {$match: {no: {$lte: common.selectCnt}}}
+                , {$group: {_id: "$code", count: {$sum: 1}}}
+                , {$sort: {count: -1}}
+                , {$limit: common.selectCnt}
+            ]
+            , function (err, res) {
+                callback(err, res);
+            }
+        );
+    }
+};
 
 module.exports=new sttggzjDao();

@@ -33,7 +33,8 @@ block content
   div#selRlt
     if isgetdata
       if success
-        h2 数据插入成功！
+        | 数据插入成功！
       else
-        h2 数据插入失败！
-        p.description #{err}
+        | 数据插入失败！
+        br
+        | #{err}

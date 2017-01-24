@@ -11,6 +11,7 @@ var getdates = require('./routes/getdatas');
 var gethybk = require('./routes/gethybk');
 var getmst = require('./routes/getmst');
 var getzlzj = require('./routes/getzlzj');
+var getggzj = require('./routes/getggzj');
 
 var app = express();
 
@@ -32,6 +33,7 @@ app.use('/getdatas', getdates);
 app.use('/gethybk', gethybk);
 app.use('/getmst', getmst);
 app.use('/getzlzj', getzlzj);
+app.use('/getggzj', getggzj);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

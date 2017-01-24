@@ -1,0 +1,39 @@
+extends layout
+
+block append script
+    script(type="text/javascript", src="/javascripts/getggzjwithjq.js")
+    script(type="text/javascript", src="/javascripts/getggzjechart.js")
+    script(type="text/javascript", src="/javascripts/comm.js")
+    script(src="//code.jquery.com/ui/1.12.1/jquery-ui.js")
+    link(rel='stylesheet', href='//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css')
+    link(rel='stylesheet', href='//jqueryui.com/resources/demos/style.css')
+
+block content
+    h1 #{title}
+    div.clsSel
+        form(id="frmgetggzj",name="frmgetggzj")
+            table
+                tr
+                    td
+                        b ※功能:①股票代码不选:个股资金流入次数最多的前50只股票出现次数检索 ②只选股票代码:股票资金流入检索
+                tr
+                    td
+                        | 股票代码:
+                        select(id="selcode",name="selcode")
+                            option(value="")
+                            each code in codes
+                                option(value="#{code}") #{code}
+                tr
+                    td
+                        | 开始日期:
+                        input(type="text",id="txtymd",name="txtymd")
+                        | (格式:YYYYMMDD)
+                tr
+                    td
+                        input(type="submit",value="获取数据")
+    br
+    form(id="frmgetggzjggdetail",name="frmgetggzjggdetail")
+        div#selData
+    div#selRlt
+    div#chartData(style="width:100%;height:400px;")
+    div#chartData2(style="width:100%;height:400px;")

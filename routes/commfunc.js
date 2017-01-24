@@ -22,12 +22,12 @@ module.exports.converthybkgroupdata = function(datas) {
 }
 
 /**
- * 根据从sttzlzj里面获取的JSON{code,count}数组转换成JSON{name,count}数组
+ * 根据从sttzlzj/sttggzj里面获取的JSON{code,count}数组转换成JSON{code,name,count}数组
  *
  * @param datas SON{code,total}数组
  * @returns {Array} JSON{name,total}数组
  */
-module.exports.convertzlzjgroupdata = function(datas) {
+module.exports.convertgroupdata = function (datas) {
     var rtnarr = new Array();
     datas.forEach(function (item, index, array) {
         var jsondata = {
