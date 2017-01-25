@@ -31,7 +31,11 @@ block content
                 tr
                     td
                         input(type="submit",value="获取数据")
-    br
+    form(id="frmgetzlzjggresearch",name="frmgetzlzjggresearch")
+        | 股票名称(模糊查询):
+        input(type="text",id="txtstockname",name="txtstockname")
+        br
+        input(type="submit",value="搜寻类似股票")
     form(id="frmgetzlzjggdetail",name="frmgetzlzjggdetail")
         div#selData
     div#selRlt

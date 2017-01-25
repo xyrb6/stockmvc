@@ -54,4 +54,14 @@ sttmggDao.prototype.findCodeAndName=function(callback){
     });
 }
 
+/**
+ * 根据指定条件查询数据
+ **/
+sttmggDao.prototype.findCodeAndNameWithNameLike = function (name, callback) {
+    sttmgg.find({name: {$regex: name, $options: 'i'}}, 'code name -_id', function (err, docs) {
+        callback(err, docs);
+    })
+}
+
+
 module.exports=new sttmggDao();

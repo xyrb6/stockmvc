@@ -10,44 +10,65 @@ var sttmhybk=require('./../model/sttmhybk');
 /* GET home page. */
 router.post('/', function(req, res, next) {
     var type = req.body['type'];
-    // console.log('router:' + type);
-    var data = getNetDataComm.dataMasterStartup(type, function (err, data) {
-        // console.log('数据插入前:' + data);
-        if (err) {
-            res.render('getmst', {title: common.TITLE_GET_MST,isgetdata:true,success:false,err:err});
-        } else {
-            //insert
-            // 个股实时资金流向排行
-            if (type === common.type.ggzj) {
-                console.log('sttmgg insert.')
-                sttmgg.create(data,function(err){
-                    if(err){
-                        res.setHeader('Content-Type', 'application/json');
-                        res.status(900);
-                        res.send(err);
-                    }else{
-                        res.setHeader('Content-Type', 'application/json');
-                        res.send(data);
-                    }
-                });
-            // 行业板块资金流向排行
-            } else if (type === common.type.hybk) {
-                console.log('sttmhybk insert.')
-                sttmhybk.create(data,function(err){
-                    if(err){
-                        res.setHeader('Content-Type', 'application/json');
-                        res.status(900);
-                        res.send(err);
-                    }else{
-                        res.setHeader('Content-Type', 'application/json');
-                        res.send(data);
-                    }
-                });
+    var name = req.body['name'];
+    console.log('type:' + type + " name:" + name);
+    // 从网络取得数据
+    if (type) {
+        var data = getNetDataComm.dataMasterStartup(type, function (err, data) {
+            // console.log('数据插入前:' + data);
+            if (err) {
+                res.render('getmst', {title: common.TITLE_GET_MST, isgetdata: true, success: false, err: err});
             } else {
-                // 什么都没有
+                //insert
+                // 个股实时资金流向排行
+                if (type === common.type.ggzj) {
+                    console.log('sttmgg insert.')
+                    sttmgg.create(data, function (err) {
+                        if (err) {
+                            res.setHeader('Content-Type', 'application/json');
+                            res.status(900);
+                            res.send(err);
+                        } else {
+                            res.setHeader('Content-Type', 'application/json');
+                            res.send(data);
+                        }
+                    });
+                    // 行业板块资金流向排行
+                } else if (type === common.type.hybk) {
+                    console.log('sttmhybk insert.')
+                    sttmhybk.create(data, function (err) {
+                        if (err) {
+                            res.setHeader('Content-Type', 'application/json');
+                            res.status(900);
+                            res.send(err);
+                        } else {
+                            res.setHeader('Content-Type', 'application/json');
+                            res.send(data);
+                        }
+                    });
+                } else {
+                    // 什么都没有
+                }
             }
-        }
-    });
+        });
+    }
+    ;
+    // 根据股票名称检索数据
+    if (name) {
+        sttmgg.findCodeAndNameWithNameLike(name, function (err, datas) {
+            console.log('err: ' + err);
+            console.log('datas: ' + datas);
+            if (err) {
+                res.setHeader('Content-Type', 'application/json');
+                res.status(900);
+                res.send(err);
+            } else {
+                res.setHeader('Content-Type', 'application/json');
+                res.send(datas);
+            }
+        });
+    }
+    ;
 });
 
 /* GET home page. */

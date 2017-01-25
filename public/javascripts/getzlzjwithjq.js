@@ -206,4 +206,71 @@ $(document).ready(function () {
                 // alert("The request is complete!");
             });
     });
+
+    // 显示个股详细信息
+    $("#frmgetzlzjggresearch").submit(function (event) {
+        // 阻止表单自动提交
+        event.preventDefault();
+        // 表示div初始化
+        $("#selData").html("");
+        $("#selRlt").html("");
+        $("#chartData").html("");
+        $("#chartData2").html("");
+
+        // 获取参数
+        var name = $("#txtstockname").val();
+        // 验证股票名称
+        if (!name) {
+            $("#selRlt").html("没有指定股票名称(模糊查询)。请指定后再搜寻。");
+            return false;
+        }
+        // 获取数据
+        $.ajax({
+            // The URL for the request
+            url: "/getmst",
+            // The data to send (will be converted to a query string)
+            data: {name: name},
+            // Whether this is a POST or GET request
+            type: "POST",
+            // The type of data we expect back
+            dataType: "json",
+            cache: false,
+            async: true
+        })
+        // Code to run if the request succeeds (is done);
+        // The response is passed to the function
+            .done(function (json, textStatus, jqXHR) {
+                if (json != "") {
+                    // 动态添加数据div
+                    var innerHtml = "<table>"
+                    for (var i = 0; i < json.length; i++) {
+                        // 被10整除就重新生成一个tr
+                        if (i % 10 == 0) {
+                            innerHtml = innerHtml + "<tr>";
+                        }
+                        // 添加td
+                        innerHtml = innerHtml + "<td><input type='radio' name='rdocodelist' value='" +
+                            json[i].code + "' />" + json[i].name + "</td>";
+                        // 被10整除就重新生成一个tr(初次从1开始计算)
+                        if ((i + 1) % 10 == 0) {
+                            innerHtml = innerHtml + "</tr>";
+                        }
+                    }
+                    innerHtml = innerHtml + "<tr><td><input type='submit' name='btncodelist' value='个股详细'/></td><td colspan='9'/></tr>";
+                    innerHtml = innerHtml + "</table>";
+                    $("#selData").html(innerHtml);
+                } else {
+                    $('#selRlt').html("搜寻类似股票没有找到匹配的数据。");
+                }
+            })
+            // Code to run if the request fails; the raw request and
+            // status codes are passed to the function
+            .fail(function (xhr, status, errorThrown) {
+                $('#selRlt').html("数据取得失败。" + xhr.responseText);
+            })
+            // Code to run regardless of success or failure;
+            .always(function (xhr, status) {
+                // alert("The request is complete!");
+            });
+    });
 });
