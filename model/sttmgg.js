@@ -63,5 +63,4 @@ sttmggDao.prototype.findCodeAndNameWithNameLike = function (name, callback) {
     })
 }
 
-
 module.exports=new sttmggDao();
