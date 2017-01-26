@@ -15,6 +15,7 @@ $(document).ready(function () {
         $("#selRlt").html("");
         $("#chartData").html("");
         $("#chartData2").html("");
+        $("#txtstocknameOfgg").val("");
         // 获取数据
         $.ajax({
             // The URL for the request
@@ -129,6 +130,7 @@ $(document).ready(function () {
         $("#selRlt").html("");
         $("#chartData").html("");
         $("#chartData2").html("");
+        $("#txtstocknameOfgg").val("");
 
         // 验证是否有选中股票
         if (!code) {

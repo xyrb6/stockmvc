@@ -32,6 +32,7 @@ $(document).ready(function () {
         $("#selRlt").html("");
         $("#chartData").html("");
         $("#chartData2").html("");
+        $("#txtstockname").val("");
         // 获取数据
         $.ajax({
             // The URL for the request
@@ -142,6 +143,8 @@ $(document).ready(function () {
         var code = $("input[name='rdocodelist']:checked").val();
 
         // 表示div初始化
+        $("#selcode").val("");
+        $("#txtymd").val("");
         // $("#selData").html("");
         $("#selRlt").html("");
         $("#chartData").html("");
@@ -212,6 +215,8 @@ $(document).ready(function () {
         // 阻止表单自动提交
         event.preventDefault();
         // 表示div初始化
+        $("#selcode").val("");
+        $("#txtymd").val("");
         $("#selData").html("");
         $("#selRlt").html("");
         $("#chartData").html("");
