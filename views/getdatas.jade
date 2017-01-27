@@ -1,40 +1,40 @@
 extends layout
 block append script
-  script(type="text/javascript", src="/javascripts/comm.js")
-  script(src="//code.jquery.com/ui/1.12.1/jquery-ui.js")
-  link(rel='stylesheet', href='//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css')
-  link(rel='stylesheet', href='//jqueryui.com/resources/demos/style.css')
+    script(type="text/javascript", src="/javascripts/comm.js")
+    script(src="//code.jquery.com/ui/1.12.1/jquery-ui.js")
+    link(rel='stylesheet', href='//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css')
+    link(rel='stylesheet', href='//jqueryui.com/resources/demos/style.css')
 
 block content
-  h1 #{title}
-  div.clsSel
-    form(name="frmgetdata",method="post",action="/getdatas")
-      table
-        tr
-          td
-            input(type="radio",name="type",value="1")
-            | 个股资金流入
-        tr
-          td
-            input(type="radio",name="type",value="2")
-            | 主力资金流入
-        tr
-          td
-            input(type="radio",name="type",value="3")
-            | 板块资金流入
-        tr
-          td
-            | 数据日期:
-            input(type="text",id="txtymd",name="txtymd")
-            | (格式:YYYYMMDD)
-        tr
-          td
-            input(type="submit",name='提 交')
-  div#selRlt
-    if isgetdata
-      if success
-        | 数据插入成功！
-      else
-        | 数据插入失败！
-        br
-        | #{err}
+    h1 #{title}
+    div.clsSel
+        form(name="frmgetdata",method="post",action="/getdatas")
+            table
+                tr
+                    td
+                        input(type="radio",name="type",value="1")
+                        | 个股资金流入
+                tr
+                    td
+                        input(type="radio",name="type",value="2")
+                        | 主力资金流入
+                tr
+                    td
+                        input(type="radio",name="type",value="3")
+                        | 板块资金流入
+                tr
+                    td
+                        | 数据日期:
+                        input(type="text",id="txtymd",name="txtymd")
+                        | (格式:YYYYMMDD)
+                tr
+                    td
+                        input(type="submit",name='提 交')
+    div#selRlt
+        if isgetdata
+            if success
+                | 数据插入成功！
+            else
+                | 数据插入失败！
+                br
+                | #{err}
