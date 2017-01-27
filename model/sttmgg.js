@@ -26,6 +26,13 @@ sttmggDao.prototype.save=function(obj,callback){
 }
 
 /*******
+ 删除全部数据
+ ********/
+sttmggDao.prototype.remove = function (callback) {
+    sttmgg.remove(callback);
+};
+
+/*******
  批量保存
  ********/
 sttmggDao.prototype.create=function(obj,callback){

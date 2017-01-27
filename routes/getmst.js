@@ -22,28 +22,49 @@ router.post('/', function(req, res, next) {
                 //insert
                 // 个股实时资金流向排行
                 if (type === common.type.ggzj) {
-                    console.log('sttmgg insert.')
-                    sttmgg.create(data, function (err) {
-                        if (err) {
+                    console.log('sttmgg delete.')
+                    sttmgg.remove(function (err) {
+                        if (!err) {
+                            console.log('sttmgg insert.')
+                            // 成功删除数据后批量插入数据
+                            sttmgg.create(data, function (err) {
+                                if (err) {
+                                    res.setHeader('Content-Type', 'application/json');
+                                    res.status(900);
+                                    res.send(err);
+                                } else {
+                                    res.setHeader('Content-Type', 'application/json');
+                                    res.send(data);
+                                }
+                            });
+                        } else {
                             res.setHeader('Content-Type', 'application/json');
                             res.status(900);
                             res.send(err);
-                        } else {
-                            res.setHeader('Content-Type', 'application/json');
-                            res.send(data);
                         }
                     });
                     // 行业板块资金流向排行
                 } else if (type === common.type.hybk) {
-                    console.log('sttmhybk insert.')
-                    sttmhybk.create(data, function (err) {
-                        if (err) {
+                    console.log('sttmhybk delete.')
+                    sttmhybk.remove(function (err) {
+                        console.log(err);
+                        if (!err) {
+                            console.log('sttmhybk insert.')
+                            // 成功删除数据后批量插入数据
+                            sttmhybk.create(data, function (err) {
+                                if (err) {
+                                    res.setHeader('Content-Type', 'application/json');
+                                    res.status(900);
+                                    res.send(err);
+                                } else {
+                                    res.setHeader('Content-Type', 'application/json');
+                                    res.send(data);
+                                }
+                            });
+                        } else {
                             res.setHeader('Content-Type', 'application/json');
                             res.status(900);
                             res.send(err);
-                        } else {
-                            res.setHeader('Content-Type', 'application/json');
-                            res.send(data);
                         }
                     });
                 } else {

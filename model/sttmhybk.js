@@ -26,6 +26,13 @@ sttmhybkDao.prototype.save=function(obj,callback){
 }
 
 /*******
+ 删除全部数据
+ ********/
+sttmhybkDao.prototype.remove = function (callback) {
+    sttmhybk.remove(callback);
+};
+
+/*******
  批量保存
  ********/
 sttmhybkDao.prototype.create=function(obj,callback){
