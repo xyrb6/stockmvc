@@ -19,7 +19,11 @@ block content
             | 行业板块列表
         tr
           td
-            //input(type="submit",name='获取数据')
-            button(type="button",onclick='getmst()') 获取数据
+            input(type="radio",name="rdotype",value="2")
+            | 行业板块+个股列表
+      tr
+        td
+          //input(type="submit",name='获取数据')
+          button(type="button",onclick='getmst()') 获取数据
   div#selRlt
   div#selData

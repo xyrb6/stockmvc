@@ -6,6 +6,7 @@ var common = require('./common');
 var getNetDataComm = require('./getNetDataComm');
 var sttmgg=require('./../model/sttmgg');
 var sttmhybk=require('./../model/sttmhybk');
+var sttmhybkgg = require('./../model/sttmhybkgg');
 
 /* GET home page. */
 router.post('/', function(req, res, next) {
@@ -52,6 +53,30 @@ router.post('/', function(req, res, next) {
                             console.log('sttmhybk insert.')
                             // 成功删除数据后批量插入数据
                             sttmhybk.create(data, function (err) {
+                                if (err) {
+                                    res.setHeader('Content-Type', 'application/json');
+                                    res.status(900);
+                                    res.send(err);
+                                } else {
+                                    res.setHeader('Content-Type', 'application/json');
+                                    res.send(data);
+                                }
+                            });
+                        } else {
+                            res.setHeader('Content-Type', 'application/json');
+                            res.status(900);
+                            res.send(err);
+                        }
+                    });
+                    // 主力资金流向排行
+                } else if (type === common.type.zlzj) {
+                    console.log('sttmhybkgg delete.')
+                    sttmhybkgg.remove(function (err) {
+                        console.log(err);
+                        if (!err) {
+                            console.log('sttmhybkgg insert.')
+                            // 成功删除数据后批量插入数据
+                            sttmhybkgg.create(data, function (err) {
                                 if (err) {
                                     res.setHeader('Content-Type', 'application/json');
                                     res.status(900);

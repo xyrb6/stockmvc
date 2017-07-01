@@ -52,6 +52,9 @@ function dataMasterStartup(type, callback) {
     // 个股实时资金流向排行
     if (type === '1') {
         URL_GET = common.URL_ONE_STOCK
+        // 主力净流入排名
+    } else if (type === '2') {
+        URL_GET = common.URL_MAIN;
         // 行业板块资金流向排行
     } else if (type === '3') {
         URL_GET = common.URL_HANGYE;
@@ -74,8 +77,9 @@ function dataMasterStartup(type, callback) {
 
 function dataParse(body, type, ymd, datakbn, callback)
 {
-    // console.log(type);
-    // console.log(ymd);
+    console.log(type);
+    console.log(ymd);
+    console.log(datakbn);
     if (body.match("data"))
     {
         // 个股相关
@@ -119,13 +123,29 @@ function dataParse(body, type, ymd, datakbn, callback)
                 // 什么都不做
             }
         } else if (type === '2') {
-            var jsonstr = {
-                "no":index + 1,
-                "date":dates,
-                "market":arr[index].split(",")[0],
-                "code":arr[index].split(",")[1],
-                "curprice":arr[index].split(",")[3],
-                "parcent":arr[index].split(",")[4]
+            if (datakbn === 'trd') {
+                var jsonstr = {
+                    "no": index + 1,
+                    "date": dates,
+                    "market": arr[index].split(",")[0],
+                    "code": arr[index].split(",")[1],
+                    "curprice": arr[index].split(",")[3],
+                    "parcent": arr[index].split(",")[4]
+                }
+            } else if (datakbn === 'mst') {
+                // console.log("code=" + arr[index].split(",")[14] +
+                //             "|name=" + arr[index].split(",")[13] +
+                //             "|stockcode=" + arr[index].split(",")[1] +
+                //             "|stockname=" + arr[index].split(",")[2] +
+                //             "|marketdate=" + (new Date(arr[index].split(",")[15].substr(0,10))).format(common.FMT_YYYYMMDD));
+                var jsonstr = {
+                    // "no": index + 1,
+                    "code": arr[index].split(",")[14],
+                    "name": arr[index].split(",")[13],
+                    "stockcode": arr[index].split(",")[1],
+                    "stockname": arr[index].split(",")[2],
+                    "marketdate": (new Date(arr[index].split(",")[15].substr(0, 10))).format(common.FMT_YYYYMMDD)
+                }
             }
         } else if (type === '3') {
             if (datakbn === 'trd') {

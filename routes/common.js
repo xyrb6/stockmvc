@@ -46,8 +46,12 @@ exports.TBL_stthybk = 'stthybk';
 exports.TBL_sttmgg = 'sttmgg';
 // 行业板块代码表
 exports.TBL_sttmhybk = 'sttmhybk';
+// 行业板块代码+个股股票代码表
+exports.TBL_sttmhybkgg = 'sttmhybkgg';
 /* FORMAT */
 exports.FMT_YYYYMMDD = 'yyyyMMdd';
+/* FORMAT YYYYMMDDHHMMSS*/
+exports.FMT_YYYYMMDDHHMMSS = 'yyyyMMddhhmmss';
 
 /* TITLE */
 exports.TITLE_GET_DATA = '获取资金流入数据';
