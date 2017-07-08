@@ -3,6 +3,7 @@ extends layout
 block append script
   script(type="text/javascript", src="/javascripts/getmst.js")
   script(type="text/javascript", src="/javascripts/getmstajax.js")
+  script(type="text/javascript", src="/javascripts/updatemstajax.js")
 
 block content
   h1 #{title}
@@ -23,7 +24,12 @@ block content
             | 行业板块+个股列表
       tr
         td
-          //input(type="submit",name='获取数据')
           button(type="button",onclick='getmst()') 获取数据
+        td →
+        td
+          button(type="button",onclick='updategg()') 更新个股所在板块
+        td →
+        td
+          button(type="button",onclick='updatezl()') 更新主力所在板块
   div#selRlt
   div#selData

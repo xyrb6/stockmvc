@@ -6,8 +6,8 @@ var mongodb = require('./mongodb');
 var Schema = mongodb.mongoose.Schema;
 
 var sttmhybkggSchema = new Schema({
-    code: String,
-    name: String,
+    hybkcode: String,
+    hybkname: String,
     stockcode: String,
     stockname: String,
     marketdate: String
@@ -57,10 +57,10 @@ sttmhybkggDao.prototype.findByCode = function (code, callback) {
 }
 
 /**
- 查询所有数据。只抽出code,name。
+ 查询所有数据。只抽出stockcode,hybkcode,hybkname。
  **/
-sttmhybkggDao.prototype.findALL = function (callback) {
-    sttmhybkgg.find(null, {code: 1, name: 1, _id: 0}, function (err, obj) {
+sttmhybkggDao.prototype.find = function (callback) {
+    sttmhybkgg.find(null, {stockcode: 1, hybkcode: 1, hybkname: 1, _id: 0}, function (err, obj) {
         callback(err, obj);
     });
 }

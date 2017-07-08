@@ -11,7 +11,9 @@ var sttggzjSchema=new Schema({
     market:String,
     code:String,
     curprice:String,//停牌股票没有当日价格 数据表示为【-】
-    parcent:Number
+    parcent: Number,
+    hybkcode: String,
+    hybkname: String
 },{versionKey:false});
 
 
@@ -91,6 +93,20 @@ sttggzjDao.prototype.groupBefore50 = function (ymdfrom, callback) {
             }
         );
     }
+};
+
+/**
+ 更新行业板块数据
+ **/
+sttggzjDao.prototype.update = function (code, hybkcode, hybkname, callback) {
+    // console.log('code:' + code + ' hybkcode:' + hybkcode + ' hybkname:' + hybkname);
+    var conditions = {'code': code, 'hybkcode': ""};
+    var doc = {$set: {'hybkcode': hybkcode, 'hybkname': hybkname}};
+    var options = {multi: true};
+
+    sttggzj.update(conditions, doc, options, function (err, res) {
+        callback(err, res);
+    });
 };
 
 module.exports=new sttggzjDao();

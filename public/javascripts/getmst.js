@@ -27,3 +27,39 @@ getmst = function(){
         type: 'json'
     });
 };
+
+updategg = function () {
+    document.getElementById('selRlt').innerHTML = '';
+
+    updatemstajax({
+        url: '/getmst',
+        method: 'POST',
+        sync: true,
+        data: {type: 'updategg'},
+        done: function (xhr) {
+            document.getElementById('selRlt').innerHTML = '数据更新成功。<br />' + xhr.responseText;
+        },
+        fail: function (err) {
+            document.getElementById('selRlt').innerHTML = '数据更新失败。<br />' + err;
+        },
+        type: 'json'
+    });
+};
+
+updatezl = function () {
+    document.getElementById('selRlt').innerHTML = '';
+
+    updatemstajax({
+        url: '/getmst',
+        method: 'POST',
+        sync: true,
+        data: {type: 'updatezl'},
+        done: function (xhr) {
+            document.getElementById('selRlt').innerHTML = '数据更新成功。<br />' + xhr.responseText;
+        },
+        fail: function (err) {
+            document.getElementById('selRlt').innerHTML = '数据更新失败。<br />' + err;
+        },
+        type: 'json'
+    });
+};

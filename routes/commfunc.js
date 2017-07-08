@@ -24,7 +24,7 @@ module.exports.converthybkgroupdata = function(datas) {
 /**
  * 根据从sttzlzj/sttggzj里面获取的JSON{code,count}数组转换成JSON{code,name,count}数组
  *
- * @param datas SON{code,total}数组
+ * @param datas JSON{code,total}数组
  * @returns {Array} JSON{name,total}数组
  */
 module.exports.convertgroupdata = function (datas) {
