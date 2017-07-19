@@ -112,8 +112,9 @@ function dataParse(body, type, ymd, datakbn, callback)
                     "code":arr[index].split(",")[1],
                     "curprice":arr[index].split(",")[3],
                     "parcent": arr[index].split(",")[6],
-                    "hybkcode": arr[index].split(",")[14],
-                    "hybkname": arr[index].split(",")[13]
+                    "hybkcode": '', //个股资金数据里面没有行业信息
+                    "hybkname": '', //个股资金数据里面没有行业信息
+                    "money": arr[index].split(",")[5]
                 }
             } else if (datakbn === 'mst') {
                 var jsonstr = {
@@ -132,7 +133,9 @@ function dataParse(body, type, ymd, datakbn, callback)
                     "market": arr[index].split(",")[0],
                     "code": arr[index].split(",")[1],
                     "curprice": arr[index].split(",")[3],
-                    "parcent": arr[index].split(",")[4]
+                    "parcent": arr[index].split(",")[4],
+                    "hybkcode": arr[index].split(",")[14],
+                    "hybkname": arr[index].split(",")[13]
                 }
             } else if (datakbn === 'mst') {
                 // console.log("code=" + arr[index].split(",")[14] +

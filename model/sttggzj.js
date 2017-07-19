@@ -13,7 +13,8 @@ var sttggzjSchema=new Schema({
     curprice:String,//停牌股票没有当日价格 数据表示为【-】
     parcent: Number,
     hybkcode: String,
-    hybkname: String
+    hybkname: String,
+    money: Number
 },{versionKey:false});
 
 
@@ -99,14 +100,46 @@ sttggzjDao.prototype.groupBefore50 = function (ymdfrom, callback) {
  更新行业板块数据
  **/
 sttggzjDao.prototype.update = function (code, hybkcode, hybkname, callback) {
-    // console.log('code:' + code + ' hybkcode:' + hybkcode + ' hybkname:' + hybkname);
-    var conditions = {'code': code, 'hybkcode': ""};
+    console.log('code:' + code + ' hybkcode:' + hybkcode + ' hybkname:' + hybkname);
+//    var conditions = {'code': code, 'hybkcode': ""};
+    var conditions = {'code': code};
     var doc = {$set: {'hybkcode': hybkcode, 'hybkname': hybkname}};
     var options = {multi: true};
 
     sttggzj.update(conditions, doc, options, function (err, res) {
         callback(err, res);
     });
+};
+
+/**
+ 查询指定行业板块+指定开始日期的个股主力流入资金统计情况
+ **/
+sttggzjDao.prototype.groupByHybk = function (hybkcode, ymdfrom, callback) {
+    hybkcode = hybkcode + "1";
+    console.log("hybk:[" + hybkcode + "],ymdfrom:[" + ymdfrom + "]");
+    if (ymdfrom) {
+        sttggzj.aggregate(
+            [
+                {$match: {$and: [{date: {$gte: ymdfrom}}, {hybkcode: hybkcode}]}}
+                , {$group: {_id: "$code", total: {$sum: "$money"}}}
+                , {$sort: {total: -1}}
+            ]
+            , function (err, res) {
+                callback(err, res);
+            }
+        );
+    } else {
+        sttggzj.aggregate(
+            [
+                {$match: {hybkcode: hybkcode}}
+                , {$group: {_id: "$code", total: {$sum: "$money"}}}
+                , {$sort: {total: -1}}
+            ]
+            , function (err, res) {
+                callback(err, res);
+            }
+        );
+    }
 };
 
 module.exports=new sttggzjDao();

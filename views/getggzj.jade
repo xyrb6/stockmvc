@@ -15,14 +15,32 @@ block content
             table
                 tr
                     td
-                        b ※功能:①股票代码不选:个股资金流入次数最多的前50只股票出现次数检索 ②只选股票代码:股票资金流入检索
+                        b ※功能(个股):①股票代码不选:个股资金流入次数最多的前50只股票出现次数检索 ②只选股票代码:股票资金流入检索
+                        br
+                        b ※功能(板块):查询指定日期开始+指定板块股票资金流入状况(必须项目:行业代码/可选项目:开始日期)
                 tr
+                    td
+                        span 查询方式：
+                            input(type="radio",name="findType",id="findTypeOfStockCode",value='stockCode',ng-click="byStockCode()")
+                            //label(for="findTypeOfStockCode")
+                            span 个股
+                            input(type="radio",name="findType",id="findTypeOfHybkCode",value='hybkCode',ng-click="byHybkCode()")
+                            //label(for="findTypeOfHybkCode")
+                            span 板块
+                tr#findByStockCode
                     td
                         | 股票代码:
                         select(id="selcode",name="selcode")
                             option(value="")
                             each code in codes
                                 option(value="#{code}") #{code}
+                tr#findByHybkCode
+                    td
+                        | 行业代码:
+                        select(id="selhybkcode",name="selhybkcode")
+                            option(value="")
+                            each hybkcode in hybkcodes
+                                option(value="#{hybkcode}") #{hybkcode}
                 tr
                     td
                         | 开始日期:
@@ -31,7 +49,6 @@ block content
                 tr
                     td
                         input(type="submit",value="获取数据")
-    //form(id="frmgetggzjggresearch",name="frmgetggzjggresearch")
     div#detailsearchconditions
         | 股票名称:
         input(type="text",id="txtstocknameOfgg",name="txtstocknameOfgg")
