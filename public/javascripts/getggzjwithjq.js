@@ -10,7 +10,7 @@ $(document).ready(function () {
         var code = $("#selcode").val();
         var hybkcode = $("#selhybkcode").val();
         var ymdfrom = $("#txtymd").val();
-        alert("查询方式[" + findtype + "] 个股代码[" + code + "] 板块代码[" + hybkcode + "] 开始日期[" + ymdfrom + "]");
+        // alert("查询方式[" + findtype + "] 个股代码[" + code + "] 板块代码[" + hybkcode + "] 开始日期[" + ymdfrom + "]");
 
         // 表示div初始化
         $("#selData").html("");
