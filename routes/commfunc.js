@@ -41,6 +41,25 @@ module.exports.convertgroupdata = function (datas) {
 }
 
 /**
+ * 根据从sttzlzj/sttggzj里面获取的JSON{code,total}数组转换成JSON{code,name,count}数组
+ *
+ * @param datas JSON{code,total}数组
+ * @returns {Array} JSON{name,total}数组
+ */
+module.exports.convertgroupdataOfFromHybk = function (datas) {
+    var rtnarr = new Array();
+    datas.forEach(function (item, index, array) {
+        var jsondata = {
+            code: item._id,
+            name: common.ggmap.get(item._id),
+            count: item.total
+        };
+        rtnarr.push(jsondata);
+    });
+    return rtnarr;
+}
+
+/**
  * 根据从stthybk里面获取的code变化成code:name形式的数组
  *
  * @param datas code数组

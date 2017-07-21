@@ -27,14 +27,14 @@ block content
                             input(type="radio",name="findType",id="findTypeOfHybkCode",value='hybkCode',ng-click="byHybkCode()")
                             //label(for="findTypeOfHybkCode")
                             span 板块
-                tr#findByStockCode
+                tr
                     td
                         | 股票代码:
                         select(id="selcode",name="selcode")
                             option(value="")
                             each code in codes
                                 option(value="#{code}") #{code}
-                tr#findByHybkCode
+                tr
                     td
                         | 行业代码:
                         select(id="selhybkcode",name="selhybkcode")

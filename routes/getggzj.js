@@ -19,9 +19,27 @@ router.post('/', function (req, res, next) {
     console.log('findtype:' + findtype + ' code:' + code + ' hybkcode:' + hybkcode + ' ymdfrom:' + ymdfrom);
 
     // 从 BK0539:综合行业 提取code
-    code = code.split(':')[0];
-    hybkcode = hybkcode.split(':')[0];
-    if (findtype == "stockCode") {
+    if (code) {
+        code = code.split(':')[0];
+    } else if (hybkcode) {
+        hybkcode = hybkcode.split(':')[0];
+    }
+
+    if (findtype == "hybkCode") {
+        // 查询股票个股资金流入详细
+        sttggzj.groupByHybk(hybkcode, ymdfrom, function (err, datas) {
+            if (err) {
+                res.setHeader('Content-Type', 'application/json');
+                res.status(900);
+                res.send(JSON.stringify(err));
+            } else {
+                // console.log(datas);
+                console.log(commfunc.convertgroupdataOfFromHybk(datas));
+                res.setHeader('Content-Type', 'application/json');
+                res.send(commfunc.convertgroupdataOfFromHybk(datas));
+            }
+        });
+    } else {
         if (code) {
             // 查询股票个股资金流入详细
             sttggzj.findByConditons(code, ymdfrom, function (err, datas) {
@@ -30,7 +48,7 @@ router.post('/', function (req, res, next) {
                     res.status(900);
                     res.send(JSON.stringify(err));
                 } else {
-                    console.log(datas);
+                    // console.log(datas);
                     res.setHeader('Content-Type', 'application/json');
                     res.send(JSON.stringify(datas));
                 }
@@ -44,25 +62,12 @@ router.post('/', function (req, res, next) {
                     res.status(900);
                     res.send(JSON.stringify(err));
                 } else {
-                    console.log(datas);
+                    // console.log(datas);
                     res.setHeader('Content-Type', 'application/json');
                     res.send(commfunc.convertgroupdata(datas));
                 }
             });
         }
-    } else if (findtype == "hybkCode") {
-        // 查询股票个股资金流入详细
-        sttggzj.groupByHybk(hybkcode, ymdfrom, function (err, datas) {
-            if (err) {
-                res.setHeader('Content-Type', 'application/json');
-                res.status(900);
-                res.send(JSON.stringify(err));
-            } else {
-                console.log(datas);
-                res.setHeader('Content-Type', 'application/json');
-                res.send(JSON.stringify(datas));
-            }
-        });
     }
 });
 
