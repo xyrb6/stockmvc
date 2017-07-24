@@ -135,7 +135,8 @@ function dataParse(body, type, ymd, datakbn, callback)
                     "curprice": arr[index].split(",")[3],
                     "parcent": arr[index].split(",")[4],
                     "hybkcode": arr[index].split(",")[14],
-                    "hybkname": arr[index].split(",")[13]
+                    "hybkname": ''
+                    // "hybkname": arr[index].split(",")[13]
                 }
             } else if (datakbn === 'mst') {
                 // console.log("code=" + arr[index].split(",")[14] +

@@ -29,7 +29,8 @@ router.post('/', function(req, res, next) {
                 } else {
                     var updateresponse = new Array();
                     datas.forEach(function (item, index, array) {
-                        sttggzj.update(item.stockcode, item.hybkcode, item.hybkname, function (err, response) {
+                        // sttggzj.update(item.stockcode, item.hybkcode, item.hybkname, function (err, response) {
+                        sttggzj.update(item.stockcode, item.hybkcode, '', function (err, response) {
                             if (err) {
                                 res.setHeader('Content-Type', 'application/json');
                                 res.status(900);
@@ -53,7 +54,8 @@ router.post('/', function(req, res, next) {
                 } else {
                     var updateresponse = new Array();
                     datas.forEach(function (item, index, array) {
-                        sttzlzj.update(item.stockcode, item.hybkcode, item.hybkname, function (err, response) {
+                        // sttzlzj.update(item.stockcode, item.hybkcode, item.hybkname, function (err, response) {
+                        sttzlzj.update(item.stockcode, item.hybkcode, '', function (err, response) {
                             if (err) {
                                 res.setHeader('Content-Type', 'application/json');
                                 res.status(900);
