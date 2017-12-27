@@ -114,7 +114,7 @@ function dataParse(body, type, ymd, datakbn, callback)
                     "parcent": arr[index].split(",")[6],
                     "hybkcode": '', //个股资金数据里面没有行业信息
                     "hybkname": '', //个股资金数据里面没有行业信息
-                    "money": arr[index].split(",")[5]
+                    "money": arr[index].split(",")[5] === "-" ? 0 : arr[index].split(",")[5]
                 }
             } else if (datakbn === 'mst') {
                 var jsonstr = {
