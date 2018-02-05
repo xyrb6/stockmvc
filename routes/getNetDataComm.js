@@ -111,7 +111,7 @@ function dataParse(body, type, ymd, datakbn, callback)
                     "market":arr[index].split(",")[0],
                     "code":arr[index].split(",")[1],
                     "curprice":arr[index].split(",")[3],
-                    "parcent": arr[index].split(",")[6],
+                    "parcent": arr[index].split(",")[6] === "-" ? 0 : arr[index].split(",")[6],
                     "hybkcode": '', //个股资金数据里面没有行业信息
                     "hybkname": '', //个股资金数据里面没有行业信息
                     "money": arr[index].split(",")[5] === "-" ? 0 : arr[index].split(",")[5]
@@ -133,7 +133,7 @@ function dataParse(body, type, ymd, datakbn, callback)
                     "market": arr[index].split(",")[0],
                     "code": arr[index].split(",")[1],
                     "curprice": arr[index].split(",")[3],
-                    "parcent": arr[index].split(",")[4],
+                    "parcent": arr[index].split(",")[4] === "-" ? 0 : arr[index].split(",")[4],
                     "hybkcode": arr[index].split(",")[14],
                     "hybkname": ''
                     // "hybkname": arr[index].split(",")[13]
