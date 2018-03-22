@@ -77,9 +77,9 @@ function dataMasterStartup(type, callback) {
 
 function dataParse(body, type, ymd, datakbn, callback)
 {
-    console.log(type);
-    console.log(ymd);
-    console.log(datakbn);
+    console.log('getNetDataComm.js-dataPerse():type=[' + type + ']');
+    console.log('getNetDataComm.js-dataPerse():ymd=[' + ymd + ']');
+    console.log('getNetDataComm.js-dataPerse():datakbn=[' + datakbn + ']');
     if (body.match("data"))
     {
         // 个股相关

@@ -90,7 +90,7 @@ sttzlzjDao.prototype.groupBefore50=function(ymdfrom, callback){
  更新行业板块数据
  **/
 sttzlzjDao.prototype.update = function (code, hybkcode, hybkname, callback) {
-    console.log('code:' + code + ' hybkcode:' + hybkcode + ' hybkname:' + hybkname);
+    // console.log('code:' + code + ' hybkcode:' + hybkcode + ' hybkname:' + hybkname);
 //    var conditions = {'code': code, 'hybkcode': ""};
     var conditions = {'code': code};
     var doc = {$set: {'hybkcode': hybkcode, 'hybkname': hybkname}};
